@@ -5,11 +5,11 @@
 // Uma forma de adicionar uma nova tarefa a uma lista
 // Formas de marcar como concluída e excluir uma tarefa (botão, checkbox, etc)
 
+let Database = require("../database/Database")
+
 // database = [ taskList[] ]
 // taskList = { id, name, tasks=[] }
 // task = { id, content, done=Bool }
-
-const Database = []
 
 class Task {
   constructor(content) {
@@ -37,19 +37,19 @@ class TaskList {
 
 class TaskModel {
   getAlltasks() {
-    return Database
+    return Database.storage
   }
 
   getTaskById(id) {
-    return Database.find(taskList => taskList.id === id)
+    return Database.storage.find(taskList => taskList.id === id)
   }
 
   createList(name){
-   Database.push(new TaskList(name))
+   Database.storage.push(new TaskList(name))
   }
 
   deleteList(id){
-    Database.filter(taskList => taskList.id !== id)
+    Database.storage = Database.storage.filter(taskList => taskList.id !== id)
   }
 }
 

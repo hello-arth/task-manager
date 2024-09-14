@@ -1,3 +1,6 @@
-const Database = []
+class Database {
+  static storage = []
+}
 
-module.exports = Database 
+
+module.exports = Database

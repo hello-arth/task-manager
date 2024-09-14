@@ -1,3 +1,12 @@
-* {
-  
+html, body {
+  height: 100%
+}
+
+.task-list {
+  cursor: pointer;
+  transition: .5s;
+}
+
+.task-list:hover {
+  background-color: #0dcaf018
 }
