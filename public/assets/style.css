@@ -10,3 +10,9 @@ html, body {
 .task-list:hover {
   background-color: #0dcaf018
 }
+
+.complete {
+  background-color: rgb(71, 153, 93);
+  color: black;
+  font-weight: 700 !important;
+}

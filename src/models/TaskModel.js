@@ -9,12 +9,12 @@ let Database = require("../database/Database")
 
 // database = [ taskList[] ]
 // taskList = { id, name, tasks=[] }
-// task = { id, content, done=Bool }
+// task = { id, description, done=Bool }
 
 class Task {
-  constructor(content) {
+  constructor(description) {
     this.id = new Date().getTime().toString()
-    this.content = content
+    this.description = description
     this.done = false
   }
 
@@ -30,18 +30,24 @@ class TaskList {
     this.tasks = []
   }
 
-  addTask(content) {
-    this.tasks.push(new Task(content))
+  getTaskById(id) {
+    const index = this.tasks.findIndex(task => task.id === id)
+    return this.tasks[index]
+  }
+
+  addTask(description) {
+    this.tasks.push(new Task(description))
   }
 }
 
 class TaskModel {
-  getAlltasks() {
+  getAlltaskLists() {
     return Database.storage
   }
 
-  getTaskById(id) {
-    return Database.storage.find(taskList => taskList.id === id)
+  getTaskListById(id) {
+    const index = Database.storage.findIndex(taskList => taskList.id === id)
+    return Database.storage[index]
   }
 
   createList(name){

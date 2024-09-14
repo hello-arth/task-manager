@@ -1,5 +1,3 @@
-const Database = require("../database/Database")
-
 const TaskModel = require("../models/TaskModel")
 
 const TaskManager = new TaskModel()
@@ -12,7 +10,7 @@ const tasksController = {
 
   // GET /app
   app: (req, res) => {
-    const allTaskLists = Database.storage
+    const allTaskLists = TaskManager.getAlltaskLists()
     res.render('app', { allTaskLists })
   },
 
@@ -23,7 +21,7 @@ const tasksController = {
 
   taskList: (req, res) => {
     const id = req.params.id
-    const taskList = TaskManager.getTaskById(id)
+    const taskList = TaskManager.getTaskListById(id)
     res.render('taskList', { taskList })
   },
 
@@ -35,11 +33,29 @@ const tasksController = {
     res.redirect('/app')
   },
 
+  // POST /app/:id/create
   deleteTaskList: (req, res) => {
     const id = req.params.id
     TaskManager.deleteList(id)
     res.redirect('/app')
   },
+
+  createTask: (req, res) => {
+    const taskListId = req.params.id
+    const { description } = (req.body)
+    const taskList = TaskManager.getTaskListById(taskListId)
+    taskList.addTask(description)
+    res.redirect(`/app/${taskListId}`)
+  },
+
+  completeTask: (req, res) => {
+    const taskListId = req.params.id
+    const { taskId } = req.body
+    const taskList = TaskManager.getTaskListById(taskListId)
+    const task = taskList.getTaskById(taskId)
+    task.complete()
+    res.redirect(`/app/${taskListId}`)
+  }
 }
 
 module.exports = tasksController

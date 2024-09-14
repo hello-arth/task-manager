@@ -8,18 +8,43 @@
 
   <!-- LINK css -->
    <link rel="stylesheet" href="/assets/style.css">
+   
   <title>TaskChain - TaskList</title>
 </head>
 <body class="bg-dark text-white">
   <div class="container d-flex flex-column justify-content-between h-100">
-    <div class="header">
-      <%- include('partials/header') %>
-    </div>
-    <div class="main h-100">
-      <span class="display-4">Boas vindas a TaskList</span>
-      
-    </div>
+    <%- include('partials/header') %>
 
+    <div class="main h-100">
+      <h1 class="mb-4"><%= taskList.name%></h1>
+      <hr>
+
+      <form action="/app/<%= taskList.id %>/createTask" method="POST">
+        <div class="input-group mb-3">
+          <input required type="text" class="form-control border border-secondary" name="description" placeholder="Ex.: Organizar as gavetas" data-bs-theme="dark" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Criar</button>
+        </div>
+      </form>
+
+      <% if (taskList.tasks.length === 0) { %>
+        <p>Não há nada aqui por enquanto... que tal criar sua primeira tarefa ?</p>
+       <% } %>
+
+      <div class="mt-4">
+        
+        <% taskList.tasks.forEach(task => { %>
+          <span class="d-flex algin-items-center justify-content-between border border-secondary border-opacity-25 rounded p-2 mb-3 task <%= task.done ? 'complete' : '' %>">
+            <span class="fw-lighter"><%= task.description %></span>
+            <% if (!task.done) { %>
+              <form action="/app/<%= taskList.id %>/completeTask/" method="POST">
+                <input type="hidden" name="taskId" value="<%= task.id %>">
+                <button class="btn btn-outline-success btn-sm">Completar</button>
+              </form>
+            <% } %>
+          </span>
+        <% }) %>
+      </div>
+    </div>
     <%- include('partials/footer') %>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
