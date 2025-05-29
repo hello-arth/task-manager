@@ -2,7 +2,7 @@
 
 Aplicação web simples para gerenciamento de listas de tarefas, construída com Node.js, Express e EJS. Permite criar listas de tarefas, adicionar tarefas, marcar como concluídas e excluir listas.
 
-## 🧰 Tecnologias utilizadas
+## 🧰 Stack utilizada
 
 - Node.js
 - Express
